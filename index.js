@@ -12,13 +12,18 @@ const port = process.env.PORT || 5000;
 
 //middleware
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:5173"], //replace with client address
-    credentials: true,
-  })
-);
 
+app.use(
+    cors({
+        origin: [
+            "https://e-commerce-backend-fg1k.onrender.com",
+            "https://shopee-246d9.web.app",
+            "https://your-vercel-project.vercel.app"
+          ], // ✅ your frontend (React) URL
+      credentials: true,
+    })
+  );
+  
 // cookie parser middleware
 app.use(cookieParser());
 
