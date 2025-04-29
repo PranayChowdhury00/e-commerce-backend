@@ -72,6 +72,13 @@ async function run() {
     const fashionItems = client.db("e-commerce").collection("fashionItems");
     const storePayments = client.db("e-commerce").collection("payment");
     const addresses = client.db("e-commerce").collection("addresses");
+    const ElectronicsProductsSearch = client.db("e-commerce").collection("ElectronicsProductsSearch");
+
+    app.get("/electronicsItemSearch",async(req,res)=>{
+        const result = await ElectronicsProductsSearch.find().toArray();
+        res.send(result)
+    })
+
 
     app.post("/users", async (req, res) => {
       const user = req.body;
