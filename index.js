@@ -74,11 +74,52 @@ async function run() {
     const addresses = client.db("e-commerce").collection("addresses");
     const ElectronicsProductsSearch = client.db("e-commerce").collection("ElectronicsProductsSearch");
 
-    app.get("/electronicsItemSearch",async(req,res)=>{
-        const result = await ElectronicsProductsSearch.find().toArray();
-        res.send(result)
-    })
-
+    app.get("/electronicsItemSearch", async (req, res) => {
+        const searchQuery = req.query.q;
+        const query = searchQuery
+          ? {
+              $or: [
+                { brand: { $regex: searchQuery, $options: "i" } },
+                { model: { $regex: searchQuery, $options: "i" } },
+                { description: { $regex: searchQuery, $options: "i" } },
+              ],
+            }
+          : {};
+      
+        try {
+          const results = await ElectronicsProductsSearch.find(query).toArray();
+          res.send(results);
+        } catch (error) {
+          console.error("Error fetching search results:", error);
+          res.status(500).send("Internal Server Error");
+        }
+      });
+      
+// Get all products (for search)
+// app.get('/products', async (req, res) => {
+//     try {
+//       const { q } = req.query;
+//       let query = {};
+      
+//       if (q) {
+//         query = {
+//           $or: [
+//             { brand: { $regex: q, $options: 'i' } },
+//             { model: { $regex: q, $options: 'i' } },
+//             { category: { $regex: q, $options: 'i' } },
+//             { description: { $regex: q, $options: 'i' } }
+//           ]
+//         };
+//       }
+      
+//       const products = await ElectronicsProductsSearch.find(query);
+//       res.json(products);
+//     } catch (err) {
+//       res.status(500).json({ message: err.message });
+//     }
+//   });
+  
+  
 
     app.post("/users", async (req, res) => {
       const user = req.body;
