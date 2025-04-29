@@ -18,8 +18,8 @@ app.use(
         origin: [
             "https://e-commerce-backend-fg1k.onrender.com",
             "https://shopee-246d9.web.app",
-            "https://your-vercel-project.vercel.app"
-          ], // ✅ your frontend (React) URL
+            "https://e-commerce-frontend-psi-ten.vercel.app/"
+          ], 
       credentials: true,
     })
   );
