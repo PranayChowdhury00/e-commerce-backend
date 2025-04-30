@@ -18,7 +18,8 @@ app.use(
         origin: [
             "https://e-commerce-backend-fg1k.onrender.com",
             "https://shopee-246d9.web.app",
-            "https://e-commerce-frontend-psi-ten.vercel.app"
+            "https://e-commerce-frontend-psi-ten.vercel.app",
+            "http://localhost:5173"
           ], 
       credentials: true,
     })
