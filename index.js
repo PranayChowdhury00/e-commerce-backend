@@ -487,7 +487,7 @@ app.delete('/wishList/:email/:productId', async (req, res) => {
       });
       app.get('/sellerProducts/:id',async (req, res) =>{
         const id = req.params.id;
-        const result = await AllSellerProducts.findOne({ _id: new ObjectId(id)});
+        const result = await AllSellerProducts.findOne({ _id: id })
         res.send(result);
       })
 
