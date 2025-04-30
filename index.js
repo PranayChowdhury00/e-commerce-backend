@@ -97,7 +97,7 @@ async function run() {
       });
       app.get("/electronicsItemSearch/:id", async (req, res) => {
         const id = req.params.id;
-        const result = await ElectronicsProductsSearch.findOne({ _id: new ObjectId(id) });
+        const result = await ElectronicsProductsSearch.findOne({ _id: id });
         res.send(result);
       });
       
