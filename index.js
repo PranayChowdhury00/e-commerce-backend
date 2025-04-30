@@ -95,35 +95,31 @@ async function run() {
           res.status(500).send("Internal Server Error");
         }
       });
-      app.get("/electronicsItemSearch/:id", async (req, res) => {
-        const id = req.params.id;
-        const result = await ElectronicsProductsSearch.findOne({ _id: id });
-        res.send(result);
-      });
-      
-// Get all products (for search)
-// app.get('/products', async (req, res) => {
+
+    // Change this in your backend
+// app.get("/sellerProducts", async (req, res) => {
 //     try {
-//       const { q } = req.query;
-//       let query = {};
-      
-//       if (q) {
-//         query = {
-//           $or: [
-//             { brand: { $regex: q, $options: 'i' } },
-//             { model: { $regex: q, $options: 'i' } },
-//             { category: { $regex: q, $options: 'i' } },
-//             { description: { $regex: q, $options: 'i' } }
-//           ]
-//         };
-//       }
-      
-//       const products = await ElectronicsProductsSearch.find(query);
-//       res.json(products);
-//     } catch (err) {
-//       res.status(500).json({ message: err.message });
+//         const results = await ElectronicsProductsSearch.find({}).toArray();
+//         res.send(results);
+//     } catch (error) {
+//         console.error("Error fetching products:", error);
+//         res.status(500).send("Internal Server Error");
 //     }
-//   });
+// });
+
+// app.get("/sellerProducts/:id", async (req, res) => {
+//     const id = req.params.id;
+//     try {
+//         // Make sure to convert string ID to ObjectId if needed
+//         const result = await ElectronicsProductsSearch.findOne({_id: new ObjectId(id)});
+//         res.send(result);
+//     } catch (error) {
+//         console.error("Error fetching product:", error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
+      
+
   
   
 
@@ -485,31 +481,9 @@ app.delete('/wishList/:email/:productId', async (req, res) => {
         });
         res.send(result);
       });
-      const { ObjectId } = require('mongodb');
+      
 
-      app.get('/sellerProducts/:id', async (req, res) => {
-        try {
-          const id = req.params.id;
-          console.log("Requesting product with ID:", id);
-          
-          // Since _id is stored as string, don't convert to ObjectId
-          const result = await AllSellerProducts.findOne({ _id: id });
-          
-          console.log("Found product:", result);
-          
-          if (!result) {
-            return res.status(404).json({ message: 'Product not found' });
-          }
-          
-          res.json(result);
-        } catch (error) {
-          console.error("Error:", error);
-          res.status(500).json({ 
-            message: 'Server error',
-            error: error.message 
-          });
-        }
-      });
+      
       
 
 
