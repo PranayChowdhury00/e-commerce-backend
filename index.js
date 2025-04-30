@@ -485,11 +485,32 @@ app.delete('/wishList/:email/:productId', async (req, res) => {
         });
         res.send(result);
       });
-      app.get('/sellerProducts/:id',async (req, res) =>{
-        const id = req.params.id;
-        const result = await AllSellerProducts.findOne({ _id: id })
-        res.send(result);
-      })
+      const { ObjectId } = require('mongodb');
+
+      app.get('/sellerProducts/:id', async (req, res) => {
+        try {
+          const id = req.params.id;
+          console.log("Requesting product with ID:", id);
+          
+          // Since _id is stored as string, don't convert to ObjectId
+          const result = await AllSellerProducts.findOne({ _id: id });
+          
+          console.log("Found product:", result);
+          
+          if (!result) {
+            return res.status(404).json({ message: 'Product not found' });
+          }
+          
+          res.json(result);
+        } catch (error) {
+          console.error("Error:", error);
+          res.status(500).json({ 
+            message: 'Server error',
+            error: error.message 
+          });
+        }
+      });
+      
 
 
       app.patch('/sellerProducts/:id', async (req, res) => {
