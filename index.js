@@ -485,6 +485,11 @@ app.delete('/wishList/:email/:productId', async (req, res) => {
         });
         res.send(result);
       });
+      app.get('/sellerProducts/:id',async (req, res) =>{
+        const id = req.params.id;
+        const result = await AllSellerProducts.findOne({ _id: new ObjectId(id)});
+        res.send(result);
+      })
 
 
       app.patch('/sellerProducts/:id', async (req, res) => {
