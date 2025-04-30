@@ -95,6 +95,11 @@ async function run() {
           res.status(500).send("Internal Server Error");
         }
       });
+      app.get("/electronicsItemSearch/:id", async (req, res) => {
+        const id = req.params.id;
+        const result = await ElectronicsProductsSearch.findOne({ _id: new ObjectId(id) });
+        res.send(result);
+      });
       
 // Get all products (for search)
 // app.get('/products', async (req, res) => {
