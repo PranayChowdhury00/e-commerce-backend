@@ -180,7 +180,7 @@ app.get("/electronicsItemSearch/:id", async (req, res) => {
     app.get("/featuredItems/:id", async (req, res) => {
         const id = req.params.id;
         try {
-          const result = await featuredItem.findOne({ _id: new ObjectId(id) });
+          const result = await featuredItem.findOne({ _id: id });
       
           if (!result) {
             return res.status(404).send({ message: "Product not found" });
