@@ -96,11 +96,11 @@ async function run() {
         }
       });
 
-app.get("/sellerProducts/:id", async (req, res) => {
+app.get("/electronicsItemSearch/:id", async (req, res) => {
     const id = req.params.id;
     try {
         // Make sure to convert string ID to ObjectId if needed
-        const result = await ElectronicsProductsSearch.findOne({_id: new ObjectId(id)});
+        const result = await ElectronicsProductsSearch.findOne({_id:id});
         res.send(result);
     } catch (error) {
         console.error("Error fetching product:", error);
