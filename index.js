@@ -96,28 +96,17 @@ async function run() {
         }
       });
 
-    // Change this in your backend
-// app.get("/sellerProducts", async (req, res) => {
-//     try {
-//         const results = await ElectronicsProductsSearch.find({}).toArray();
-//         res.send(results);
-//     } catch (error) {
-//         console.error("Error fetching products:", error);
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
-
-// app.get("/sellerProducts/:id", async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//         // Make sure to convert string ID to ObjectId if needed
-//         const result = await ElectronicsProductsSearch.findOne({_id: new ObjectId(id)});
-//         res.send(result);
-//     } catch (error) {
-//         console.error("Error fetching product:", error);
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
+app.get("/sellerProducts/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        // Make sure to convert string ID to ObjectId if needed
+        const result = await ElectronicsProductsSearch.findOne({_id: new ObjectId(id)});
+        res.send(result);
+    } catch (error) {
+        console.error("Error fetching product:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
       
 
   
@@ -189,11 +178,21 @@ async function run() {
       res.send(result);
     });
     app.get("/featuredItems/:id", async (req, res) => {
-      const id = req.params.id;
-      const result = await featuredItem.findOne({ _id: id });
-
-      res.send(result);
-    });
+        const id = req.params.id;
+        try {
+          const result = await featuredItem.findOne({ _id: new ObjectId(id) });
+      
+          if (!result) {
+            return res.status(404).send({ message: "Product not found" });
+          }
+      
+          res.send(result);
+        } catch (error) {
+          console.error("Error fetching product:", error.message);
+          res.status(500).send({ message: "Server error" });
+        }
+      });
+      
     app.get("/trendingProducts", async (req, res) => {
       const result = await trendingProducts.find().toArray();
       res.send(result);
